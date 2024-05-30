@@ -23,3 +23,43 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+Cypress.Commands.add('login', (username, password) => {
+    // Perform login logic here, such as visiting the login page and filling in the credentials
+    cy.visit('/');
+    cy.get('#user-name').type(username);
+    cy.get('#password').type(password);
+    cy.get('#login-button').click()
+});
+
+Cypress.Commands.add('addProduct', () => {
+    cy.get(".pricebar").each(($el, index, list) => {
+        let btn_text = $el.find('button').text()
+        if (btn_text.includes('Add to cart')) {
+            cy.contains('Add to cart').click()
+            return false
+        }
+    })
+});
+
+Cypress.Commands.add('getListProduct', () => {
+    const product = [];
+    var product_name
+    var product_price
+    cy.get('.inventory_item_description').each(($el, index, list) => {
+        cy.get('.inventory_item_name').eq(index).invoke('text').then((text) => {
+            product_name = text.trim()
+        }).then(() => {
+            cy.get('.inventory_item_price').eq(index).invoke('text').then((text) => {
+                product_price = Number(text.trim().substring(1))
+            }).then(() => {
+                const object = {
+                    product_name: product_name,
+                    product_price: product_price,
+                };
+                product.push(object);
+            })
+        })
+    }).then(() => {
+        return product
+    })
+})

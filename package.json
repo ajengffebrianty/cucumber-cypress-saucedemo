@@ -1,0 +1,34 @@
+{
+  "name": "cypresscucumber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "cypress.config.js",
+  "scripts": {
+    "test": "npx cypress run && node cucumber-html-report.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajengffebrianty/cucumber-cypress-saucedemo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ajengffebrianty/cucumber-cypress-saucedemo/issues"
+  },
+  "homepage": "https://github.com/ajengffebrianty/cucumber-cypress-saucedemo#readme",
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.5",
+    "@cypress/browserify-preprocessor": "^3.0.2",
+    "moment": "^2.30.1",
+    "multiple-cucumber-html-reporter": "^3.6.2"
+  },
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "cypress/integration/BDD",
+    "json": {
+      "enabled": true,
+      "formatter": "cucumber-json-formatter",
+      "output": "cypress/cucumber/results.json"
+    }
+  }
+}
